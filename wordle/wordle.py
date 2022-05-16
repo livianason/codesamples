@@ -34,29 +34,17 @@ def check_for_dup_letters(answer):
 	return(answer_dict)
 
 def get_help():
-	print("* HELP MENU:")
-	print(" *  I - instructions")
-	print(" *  R - results")
-	print(" *  Q - quit")
-	print(" *  X - continue")
-	flag=input(" > ")
-
-	if flag in ('Q','q','quit','Quit'):
-		return('q')
-	elif flag in ('R','r','result','results','Results','Result'):
-		return('r')
-	elif flag in ('I','i','instructions','Instructions'):
-		print("* INSTRUCTIONS:")
-		print(" * A 5 letter word is selected at random.")
-		print(" * You must guess the word within 6 tries.")
-		print(" * After each guess, the accuracy result will print.")
-		print(" * Result Meaning:")
-		print(" * O : a correct letter is in the correct position")
-		print(" * X : a correct letter is in the wrong position")
-		print(" * _ : the letter does not appear in the final word.")
-		print(" * Input q to quit, r for results, or x to continue.")
-		flag=input(" > ")
-	return(flag)
+	print("* INSTRUCTIONS:")
+	print(" * A 5 letter word is selected at random.")
+	print(" * You must guess the word within 6 tries.")
+	print(" * After each guess, the accuracy result will print.")
+	print(" * Result Meaning:")
+	print(" * O : a correct letter is in the correct position")
+	print(" * X : a correct letter is in the wrong position")
+	print(" * _ : the letter does not appear in the final word.")
+	print(" * Other options are 'results', 'help', or 'quit'")
+	print('')
+	print("* Guess a 5 letter word.")
 
 def print_results(guesses,results):
 	if len(guesses) <1:
@@ -89,13 +77,7 @@ for tries in range(6):
 			flag='q'
 			break
 		elif guess in ('help','Help'):
-			flag=get_help()
-			if flag == 'q':
-				break
-			elif flag == 'r':
-				print_results(all_guesses,all_results)
-			else:
-				None
+			get_help()
 		elif guess in ('results','Results'):
 			print_results(all_guesses,all_results)
 		elif guess in all_guesses:
