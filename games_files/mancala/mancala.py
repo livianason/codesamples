@@ -41,7 +41,7 @@ def choose_cup(user, board, players):
 	while choice not in to_print:
 		choice=input("Player {}: Choose from cups {} > ".format(user,', '.join(to_print[2:])))
 		if choice in ('help','Help'):
-			print("You need help.")
+			get_help()
 	return(choice)
 
 def play_choice(user,choice,board,points):
@@ -94,6 +94,17 @@ def calculate_score(board,points):
 	points[2] = points[2] + sum(board[2])
 	return(points)
 
+def get_help():
+	print("INSTRUCTIONS")
+	print("You will play against the computer or against a friend.")
+	print("Take turns selecting a cup.")
+	print("One point from the cup will be placed in each following")
+	print(" cup, including your score, until the points are gone.")
+	print("If the last point lands on your score, you go again.")
+	print("If the last point lands in an empty space on your side,")
+	print(" you may steal the opposing cup's points.")
+	print("Play until one side of the baord is empty.")
+	print("The player with the most points wins!")
 
 def main():
 
@@ -107,6 +118,13 @@ def main():
 	board, points = new_game()
 	user = 1
 	
+	if players in ('0','quit','Quit'):
+		print("You quit.")
+		return()
+	elif players in ('3','help','Help','Instructions','instructions'):
+		get_help()
+		return()
+
 	while any(board[1]) and any(board[2]):
 
 		print_board(user,board,points,players)
@@ -126,17 +144,19 @@ def main():
 			elif user == 2:
 				user = 1
 
-	print_board(user,board,points,players)
-	print("The game has ended.")
-	points = calculate_score(board,points)
+	if choice not in ('quit','Quit'):
+		print_board(user,board,points,players)
+		print("The game has ended.")
+		points = calculate_score(board,points)
 
-	if points[1]>points[2]:
-		print("Congratulations! Player 1 has won mancala!")
-	elif points[2]>points[1] and players=='2':
-		print("Congratulations! Player 2 has won mancala!")
-	else:
-		print("Oh no! You lost to the computer.")
-	print("*Final*  Player1: {}  Player2: {}".format(points[1],points[2]))
+		if points[1]>points[2]:
+			print("Congratulations! Player 1 has won mancala!")
+		elif points[2]>points[1] and players=='2':
+			print("Congratulations! Player 2 has won mancala!")
+		else:
+			print("Oh no! You lost to the computer.")
+		print("*Final*  Player1: {}  Player2: {}".format(points[1],points[2]))
+
 
 
 main()
